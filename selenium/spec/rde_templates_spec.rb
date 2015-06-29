@@ -95,7 +95,7 @@ describe "RDE Templates" do
     $driver.wait_for_ajax
 
     assert(10) {
-      $driver.find_elements(:css => "select#rde_select_template option").map {|x| x.attribute("value") }.include?(template.id).should be_false
+      $driver.find_elements(:css => "select#rde_select_template option").map {|x| x.attribute("value") }.include?(template.id).should be_falsey
     }
 
   end

@@ -55,8 +55,8 @@ describe 'JSON model' do
   end
 
   
-  it "raises an error if you ask it for a schema source for a non-existent schema" do
-    JSONModel.schema_src("somenonexistenttestschema").should raise_error
+  it "rreturns nil  if you ask it for a schema source for a non-existent schema" do
+    JSONModel.schema_src("somenonexistenttestschema").should be_nil
   end
 
   
@@ -66,9 +66,9 @@ describe 'JSON model' do
 
   
   it "can recognize a valid url" do
-    lambda {
+    expect {
       JSONModel(:testschema).from_hash({"elt_0" => "001", "url" => "http://www.foo.bar"})
-    }.should_not raise_error(JSONModel::ValidationException)
+    }.not_to raise_error
   end
 
 
@@ -103,7 +103,7 @@ describe 'JSON model' do
       exception = e
     end
 
-    exception.should_not be_false
+    exception.should_not be_falsey
 
     # You can still get at your invalid object if you really want.
     exception.invalid_object.elt_0.should eq("/!$")
@@ -215,7 +215,7 @@ describe 'JSON model' do
                                           })
     ts.add_error("elt_0", "'hello world' is two words, you squashed them together")
     ts._exceptions[:errors]["elt_0"].include?("'hello world' is two words, you squashed them together")
-      .should be_true
+      .should be_truthy
   end
 
 
@@ -421,13 +421,13 @@ describe 'JSON model' do
 
     term.term_type = 'garbage'
     expect {
-      term.save
+      term.to_hash
     }.to raise_error(JSONModel::ValidationException)
 
     term.term_type = 'other_unmapped'
     expect {
-      term.save
-    }.to_not raise_error(JSONModel::ValidationException)
+      term.to_hash
+    }.to_not raise_error
   end
 
 

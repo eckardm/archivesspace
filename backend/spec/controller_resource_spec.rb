@@ -93,10 +93,10 @@ describe 'Resources controller' do
     end
 
     resources = JSONModel(:resource).all(:page => 1)['results']
-    resources.any? { |res| res.title == generate(:generic_title) }.should be_false
+    resources.any? { |res| res.title == generate(:generic_title) }.should == false
 
     powers.each do |p|
-      resources.any? { |res| res.title == p }.should be_true
+      resources.any? { |res| res.title == p }.should == true
     end
   end
 

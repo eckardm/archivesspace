@@ -39,7 +39,7 @@ describe 'REST interface' do
                                         "condition_description" => "The condition description",
                                         "accession_date" => "2012-05-03").save
       end
-    }.to_not raise_error(AccessDeniedException)
+    }.to_not raise_error
   end
 
 
@@ -102,9 +102,9 @@ describe 'REST interface' do
   it "returns a list of all Endpoints" do
     expect {
       endpoint = RESTHelpers::Endpoint.all.first
-      endpoint[:uri].nil?.should be_false
-      endpoint[:method].nil?.should be_false
-      endpoint[:returns].nil?.should be_false
+      endpoint[:uri].nil?.should == false
+      endpoint[:method].nil?.should == false
+      endpoint[:returns].nil?.should == false
     }.to_not raise_error
   end
 

@@ -16,7 +16,7 @@ describe 'Permissions controller' do
       repo_permissions[permission.permission_code] = true
     end
 
-    repository_permissions.any? {|permission| permission.permission_code == "new_permission"}.should be_true
+    repository_permissions.any? {|permission| permission.permission_code == "new_permission"}.should == true
 
     (Set.new(all_permissions) - Set.new(repository_permissions)).all? {|permission|
       if not repo_permissions[permission.permission_code]
