@@ -172,9 +172,7 @@ include FactoryGirl::Syntax::Methods
 
 RSpec.configure do |config|
 
-  # config.fail_fast = true
   config.fail_fast = false
-
 
   config.expect_with(:rspec) do |c|
     c.syntax = [:should, :expect]
