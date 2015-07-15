@@ -75,8 +75,10 @@ describe "User management" do
   it "doesn't allow you to edit the user short names" do
     login("admin", "admin")
 
-    $driver.navigate.to("#{$frontend}/users/1/edit")
-    $driver.find_element(:id, "user_username_").attribute("readonly").should eq("true")
+    $driver.attempt(10) { |attempt|
+      attempt.navigate.to("#{$frontend}/users/1/edit")
+      attempt.find_element(:id, "user_username_")
+    }.attribute("readonly").should eq("true")
   end
 
 end

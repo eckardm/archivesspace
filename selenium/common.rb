@@ -99,6 +99,26 @@ class Selenium::WebDriver::Driver
   end
 
 
+  def attempt(times, &block)
+
+    tries = times
+
+    begin
+      block.call(self)
+    rescue Exception => e
+      if tries > 0
+        tries -= 1
+        $sleep_time += 0.1
+        sleep 0.5
+        puts "Attempts remaining: #{tries}"
+        retry
+      else
+        raise e
+      end
+    end
+  end
+
+
   alias :find_element_orig :find_element
   def find_element(*selectors)
     wait_for_ajax
