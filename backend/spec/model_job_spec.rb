@@ -108,7 +108,8 @@ describe 'job model and job runners' do
 
 
     it "can attach some input files to a job" do
-      job.stub(:file_store) do
+
+      allow(job).to receive(:file_store) do
         double(:store => "stored_path")
       end
 

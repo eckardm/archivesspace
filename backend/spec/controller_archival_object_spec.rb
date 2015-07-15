@@ -93,7 +93,7 @@ describe 'Archival Object controller' do
 
     expect { 
       create(:json_archival_object, opts.merge(:resource => {:ref => alpha.uri}))
-    }.to raise_error
+    }.to raise_error(JSONModel::ValidationException)
   end
 
 

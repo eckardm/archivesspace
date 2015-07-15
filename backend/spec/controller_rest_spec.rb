@@ -56,15 +56,15 @@ describe 'REST interface' do
 
     expect {
       JSONModel(:accession).all(:page => 1, :page_size => -1)
-    }.to raise_error
+    }.to raise_error(ArgumentError)
 
     expect {
       JSONModel(:accession).all(:page => -1)
-    }.to raise_error
+    }.to raise_error(ArgumentError)
 
     expect {
       JSONModel(:accession).all(:modified_since => -1)
-    }.to raise_error
+    }.to raise_error(ArgumentError)
 
     JSONModel(:accession).all(:page => 1, :page_size => too_many)['results'].size.should eq(nice_amount)
 
@@ -79,7 +79,7 @@ describe 'REST interface' do
 
     expect {
       JSONModel(:group).find(id, 'with_members' => 'moo')
-    }.to raise_error
+    }.to raise_error(RuntimeError)
 
     expect {
       JSONModel(:group).find(id, 'with_members' => nil)
@@ -95,7 +95,7 @@ describe 'REST interface' do
 
     expect {
       JSONModel(:group).find('not an integer')
-    }.to raise_error
+    }.to raise_error(RuntimeError)
   end
 
 

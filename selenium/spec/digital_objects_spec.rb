@@ -65,6 +65,8 @@ describe "Digital Objects" do
   it "reports errors if adding a child with no title to a Digital Object" do
     $driver.find_element(:link, "Add Child").click
     $driver.wait_for_ajax
+    $wait.until { $driver.find_element(:id => "digital_object_component_component_id_") }
+
     $driver.clear_and_send_keys([:id, "digital_object_component_component_id_"], "123")
     sleep(2)
 

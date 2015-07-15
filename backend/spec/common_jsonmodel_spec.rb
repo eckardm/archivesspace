@@ -61,7 +61,7 @@ describe 'JSON model' do
 
   
   it "raises an error if you try to substitute a symbol into a uri" do
-    expect { JSONModel(:testschema).substitute_parameters("/uri/number/:number", :number => :wtf) }.to raise_error
+    expect { JSONModel(:testschema).substitute_parameters("/uri/number/:number", :number => :wtf) }.to raise_error(RuntimeError)
   end
 
   
@@ -160,7 +160,7 @@ describe 'JSON model' do
                                  "properties" => {},
                                })
 
-    expect { JSONModel(:urilessschema).id_for("/some/joke/of/a/uri") }.to raise_error
+    expect { JSONModel(:urilessschema).id_for("/some/joke/of/a/uri") }.to raise_error(RuntimeError)
   end
 
 
@@ -171,7 +171,7 @@ describe 'JSON model' do
 
 
   it "returns false if you ask for a model that doesn't exist" do
-    expect { JSONModel(:not_a_real_model) }.to raise_error
+    expect { JSONModel(:not_a_real_model) }.to raise_error(RuntimeError)
   end
 
 
@@ -407,7 +407,7 @@ describe 'JSON model' do
     # Abstract archival object don't allow language to be klingon
     expect {
       create(:json_resource, {:language => "klingon"}) 
-    }.to raise_error
+    }.to raise_error(JSONModel::ValidationException)
     
     # Abstract archival objects do allow language to be nil
     expect {

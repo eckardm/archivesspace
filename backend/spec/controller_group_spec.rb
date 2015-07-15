@@ -152,7 +152,7 @@ describe 'Group controller' do
       as_test_user('underling') do
         JSONModel(:group).all
       end
-    }.to raise_error
+    }.to raise_error(AccessDeniedException)
   end
 
 end
