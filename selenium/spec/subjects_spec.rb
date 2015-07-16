@@ -11,8 +11,7 @@ describe "Subjects" do
     (@archivist_user, @archivist_pass) = create_user
     add_user_to_archivists(@archivist_user, @repo.uri)
 
-    login(@archivist_user, @archivist_pass)
-    select_repo(@repo.repo_code)
+    login_to_repo(@archivist_user, @archivist_pass, @repo)
   end
 
   after(:all) do

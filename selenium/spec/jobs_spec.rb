@@ -6,8 +6,8 @@ describe "Jobs" do
     backend_login
 
     @repo = create(:repo)
-    login("admin", "admin")
-    select_repo(@repo)
+
+    login_to_repo('admin', 'admin', @repo)
   end
 
   # avoid the dreaded StaleElementReferenceError

@@ -13,8 +13,7 @@ describe "User Preferences" do
 
     run_all_indexers
 
-    login('admin', 'admin')
-    select_repo(@repo.repo_code)
+    login_to_repo('admin', 'admin', @repo)
   end
 
 

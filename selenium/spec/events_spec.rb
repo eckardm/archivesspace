@@ -16,8 +16,7 @@ describe "Events" do
     agent_uri, @agent_name = create_agent("Geddy Lee")
     run_index_round
 
-    login(@archivist_user, @archivist_pass)
-    select_repo(@repo.repo_code)
+    login_to_repo(@archivist_user, @archivist_pass, @repo)
   end
 
 

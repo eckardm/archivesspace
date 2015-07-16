@@ -450,6 +450,15 @@ module RepositoryHelperMethods
     end
   end
 
+
+  def login_to_repo(user, pass, repo)
+    $driver.attempt(5) {|attempt|
+      login(user, pass)
+      select_repo(repo)
+    }
+  end
+
+
   def generate_4part_id
     Digest::MD5.hexdigest("#{Time.now}#{SecureRandom.uuid}#{$$}").scan(/.{6}/)[0...1]
   end

@@ -9,8 +9,7 @@ describe "Agents" do
     (@user, @pass) = create_user
     add_user_to_archivists(@user, @repo.uri)
 
-    login(@user, @pass)
-    select_repo(@repo.repo_code)
+    login_to_repo(@user, @pass, @repo.repo_code)
   end
 
   after(:all) do

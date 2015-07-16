@@ -13,8 +13,7 @@ describe "RDE Templates" do
 
   before(:each) do
 
-    login("admin", "admin")
-    select_repo(@repo.repo_code)
+    login_to_repo("admin", "admin", @repo)
 
     $driver.get("#{$frontend}#{@r.uri.sub(/\/repositories\/\d+/, '')}/edit")
     $driver.wait_for_ajax

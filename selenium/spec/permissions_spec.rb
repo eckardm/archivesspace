@@ -11,8 +11,7 @@ describe "Permissions" do
 
 
   it "allows archivists to edit major record types by default" do
-    login(@archivist, @pass)
-    select_repo(@perm_test_repo)
+    login_to_repo(@archivist, @pass, @perm_test_repo)
     $driver.find_element(:link => 'Create').click
     $driver.find_element(:link => 'Accession').click
     $driver.find_element(:link => 'Create').click
@@ -24,8 +23,7 @@ describe "Permissions" do
 
 
   it "supports denying permission to edit Resources" do
-    login_as_admin
-    select_repo(@perm_test_repo)
+    login_to_repo('admin', 'admin', @perm_test_repo)
     $driver.find_element(:css, '.repo-container .btn.dropdown-toggle').click
     $driver.find_element(:link, "Manage Groups").click
 
@@ -34,8 +32,7 @@ describe "Permissions" do
     $driver.find_element(:xpath, '//input[@id="update_resource_record"]').click
     $driver.find_element(:css => 'button[type="submit"]').click
     logout
-    login(@archivist, @pass)
-    select_repo(@perm_test_repo)
+    login_to_repo(@archivist, @pass, @perm_test_repo)
     $driver.find_element(:link => 'Create').click
     $driver.ensure_no_such_element(:link, "Resource")
     logout

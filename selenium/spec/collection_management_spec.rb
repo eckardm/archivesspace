@@ -10,8 +10,7 @@ describe "Collection Management" do
     add_user_to_archivists(archivist, repo_uri)
 
 
-    login(archivist, pass)
-    select_repo(new_repo_code)
+    login_to_repo(archivist, pass, new_repo_code)
   end
 
   after(:all) do

@@ -10,12 +10,10 @@ describe "Accessions" do
 
     @coll_mgmt_accession = create(:accession)
 
-
     (@archivist_user, @archivist_pass) = create_user
     add_user_to_archivists(@archivist_user, @repo.uri)
 
-    login(@archivist_user, @archivist_pass)
-    select_repo(@repo.repo_code)
+    login_to_repo(@archivist_user, @archivist_pass, @repo.repo_code)
 
     @accession_title = "Exciting new stuff - \u2603 - #{Time.now.to_i}"
     @me = "#{$$}.#{Time.now.to_i}"

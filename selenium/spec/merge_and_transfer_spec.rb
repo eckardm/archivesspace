@@ -9,8 +9,7 @@ describe "Merging and transfering resources" do
 
     @target_repo = create(:repo)
 
-    login("admin", "admin")
-    select_repo(@repo.repo_code)
+    login_to_repo("admin", "admin", @repo)
 
     @resource = create(:resource)
     @resource2 = create(:resource)

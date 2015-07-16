@@ -160,9 +160,7 @@ describe "Digital Objects" do
 
   it "can merge a DO into a DO" do
     logout
-    login("admin", "admin")
-
-    select_repo($test_repo)
+    login_to_repo("admin", "admin", $test_repo)
 
     [ "Thing1", "Thing2"].each do |title|
       create_digital_object(:title => title  )

@@ -14,8 +14,7 @@ describe "Locations" do
     (@archivist_user, @archivist_pass) = create_user
     add_user_to_archivists(@archivist_user, @repo.uri)
 
-    login(@manager_user, @manager_pass)
-    select_repo(@repo.repo_code)
+    login_to_repo(@manager_user, @manager_pass, @repo)
   end
 
 
