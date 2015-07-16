@@ -452,6 +452,11 @@ module RepositoryHelperMethods
 
 
   def login_to_repo(user, pass, repo)
+    begin
+      logout
+    rescue # maybe we were already logged out
+    end
+
     $driver.attempt(5) {|attempt|
       login(user, pass)
       select_repo(repo)

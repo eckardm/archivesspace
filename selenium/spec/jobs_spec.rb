@@ -5,7 +5,7 @@ describe "Jobs" do
   before(:all) do
     backend_login
 
-    @repo = create(:repo)
+    @repo = create(:repo, :repo_code => "jobs_test_#{Time.now.to_i}")
 
     login_to_repo('admin', 'admin', @repo)
   end
