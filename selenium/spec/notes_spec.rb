@@ -3,7 +3,23 @@ require_relative 'spec_helper'
 describe "Notes" do
 
   before(:all) do
-    login_as_archivist
+    backend_login
+
+    @repo = create(:repo, :repo_code => "notes_test_#{Time.now.to_i}")
+    set_repo(@repo.uri)
+
+    (@archivist_user, @archivist_pass) = create_user
+    add_user_to_archivists(@archivist_user, @repo.uri)
+
+    login(@archivist_user, @archivist_pass)
+    select_repo(@repo.repo_code)
+
+    @resource = create(:resource)
+
+    $driver.attempt(10) { |attempt|
+      attempt.get("#{$frontend}#{@resource.uri.sub(/\/repositories\/\d+/, '')}/edit")
+      attempt.find_element(:id, "resource_title_")
+    }
   end
 
 
@@ -11,24 +27,8 @@ describe "Notes" do
     logout
   end
 
+
   it "can attach notes to resources" do
-    $driver.find_element(:link, "Create").click
-    $driver.find_element(:link, "Resource").click
-
-    $driver.clear_and_send_keys([:id, "resource_title_"], "a resource with notes")
-    $driver.complete_4part_id("resource_id_%d_")
-    combo = $driver.find_element(:xpath => '//div[@class="combobox-container"][following-sibling::select/@id="resource_language_"]//input[@type="text"]');
-    combo.clear
-    combo.click
-    combo.send_keys("eng")
-    combo.send_keys(:tab)
-    $driver.find_element(:id, "resource_level_").select_option("collection")
-    $driver.clear_and_send_keys([:id, "resource_extents__0__number_"], "10")
-    $driver.find_element(:id => "resource_extents__0__extent_type_").select_option("files")
-
-    $driver.find_element(:id => "resource_dates__0__date_type_").select_option("single")
-    $driver.clear_and_send_keys([:id, "resource_dates__0__begin_"], "1978")
-
     add_note = proc do |type|
       $driver.find_element(:css => '#notes .subrecord-form-heading .btn:not(.show-all)').click
       $driver.find_last_element(:css => '#notes select.top-level-note-type:last-of-type').select_option(type)
@@ -82,7 +82,10 @@ describe "Notes" do
 
 
   it "can edit an existing resource note to add subparts after saving" do
-    $driver.click_and_wait_until_gone(:link, 'Edit')
+    $driver.attempt(10) { |attempt|
+      attempt.get("#{$frontend}#{@resource.uri.sub(/\/repositories\/\d+/, '')}/edit")
+      attempt.find_element(:id, "resource_title_")
+    }
 
     notes = $driver.blocking_find_elements(:css => '#notes .subrecord-form-fields')
 
