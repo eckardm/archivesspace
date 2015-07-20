@@ -1,4 +1,6 @@
-require_relative 'factories.rb'
+require 'rspec/retry'
+
+require_relative 'factories'
 
 require_relative "../common"
 require_relative '../../indexer/app/lib/realtime_indexer'
@@ -183,6 +185,7 @@ RSpec.configure do |config|
   config.include JSTreeHelperMethods
   config.include FactoryGirl::Syntax::Methods
   config.extend RSpecClassHelpers
+  config.verbose_retry = true
 
   config.before(:suite) do
     selenium_init($backend_start_fn, $frontend_start_fn)

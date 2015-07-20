@@ -29,7 +29,7 @@ describe "Merging and transfering resources" do
   end
 
 
-  it "can transfer a resource to another repository and open it for editing" do
+  it "can transfer a resource to another repository and open it for editing", :retry => 2, :retry_wait => 10 do
     $driver.get("#{$frontend}#{@resource.uri.sub(/\/repositories\/\d+/, '')}/edit")
 
     $driver.find_element(:link, "Transfer").click
@@ -52,7 +52,7 @@ describe "Merging and transfering resources" do
 
 
 
-  it "can merge a resource into a resource" do
+  it "can merge a resource into a resource", :retry => 2, :retry_wait => 10 do
     select_repo(@repo.repo_code)
 
     $driver.get("#{$frontend}#{@resource2.uri.sub(/\/repositories\/\d+/, '')}/edit")
